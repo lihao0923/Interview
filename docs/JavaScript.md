@@ -335,41 +335,58 @@ Vue展示了其设计模式的案例体现，Vue的双向数据绑定使用了�
 
 * 实现方式：
 * JSON.parse(JSON.stringify(data)) (JSON.stringify()在对象中遇到 undefined、function 和 symbol 时会自动将其忽略，在数组中则会返回 null，以保证单元位置不变)
-* 递归
+* 递归：
 
         function deepClone(data) {
-            let newObj = {};
-            if (data === null) return null
-            if (typeof data !== 'object') return data
-            if (data instanceof RegExp) return new RegExp(data)
-            if (data instanceof Date) return new Date(data)
-        
-            if (Array.isArray(data)) {
-                let temp = []
-                data.forEach(item => {
-                    temp.push(item)
-                })
-                return temp
+            let container
+            let type = Object.prototype.toString.call(data).slice(8, -1)
+
+            if(type === 'String' || type === 'Boolean' || type === 'Number' || data === null) {
+                return data
             }
-        
-            for(let k in data) {
-                newObj[k] = deepClone(data[k])
+
+            if (data instanceof RegExp) {
+                return new RegExp(data)
             }
-        
-            return newObj
+
+            if (data instanceof Date) {
+                return new Date(data)
+            }
+
+            if (type === 'Object') {
+                container = {}
+            }
+            if (type === 'Array') {
+                container = []
+            }
+
+            for (let k in data) {
+                let type = Object.prototype.toString.call(data[k]).slice(8, -1)
+                if (type === 'Array' || type === 'Object') {
+                    container[k] = deepClone(data[k]);
+                } else {
+                    container[k] = data[k];
+                }
+            }
+            return container
         }
 
-        let obj = {
-            name: 'peter',
+        let obj1 = {
+            title: 'hello',
             flag: true,
-            arr: [1, 2, 3, 4],
-            run: function() {
-                console.log('run!');
-            },
-            reg: /^\d+$/,
-            o: { title: 'hello', content: 'hello world!!!'}
+            arr: [1, 2, { text: 'blablabla', run: function() {console.log('run!')}}],
+            person: { name: 'peter', age: 20 },
+            reg: /^\d+$/
         }
 
+        // let obj1 = 'hello world'
+        // let obj1 = false
+
+        let obj2 = deepClone(obj1)
+        console.log('obj2 - 1:', obj2)
+        obj2.person = { name: 'peter', age: 18 }
+        console.log('obj2 - 2:', obj2)
+        console.log('obj1:', obj1)
 
 
 # 栈和堆的区别？
