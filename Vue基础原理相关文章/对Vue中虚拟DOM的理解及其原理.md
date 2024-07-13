@@ -18,7 +18,7 @@ Vue官网解释：虚拟 DOM (Virtual DOM，简称 VDOM) 是一种编程概念�
 ```
 
 ## 二、Vue中虚拟DOM的原理
-![Alt text](./images/vdom.png)
+![Alt text](images/vdom.png)
 
 
 #### 1、Vue 组件挂载时会发生如下几件事：

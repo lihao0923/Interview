@@ -12,7 +12,7 @@
 MVVM是“Model-View-ViewModel”，它是一种设计模式，用于实现用户界面的分离和交互。
 ```
 
-![Alt text](./images/vbind1.png)
+![Alt text](images/vbind1.png)
 
 ```
 MVVM 模式组成部分分为以下四种：
@@ -34,7 +34,7 @@ MVVM 模式组成部分分为以下四种：
 首先我们需要知道：vue.js是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调来渲染视图。
 ```
 
-![Alt text](./images/vbind2.png)
+![Alt text](images/vbind2.png)
 
 ```
 1、我们已经知道实现数据的双向绑定，首先要对数据进行劫持监听，所以我们需要设置一个监听器Observer，用来监听所有属性。

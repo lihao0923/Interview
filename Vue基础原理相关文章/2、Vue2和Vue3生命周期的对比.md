@@ -14,7 +14,7 @@
 
 ## 2、Vue2和Vue3生命周期图示
 #### （1）Vue2生命周期图
-![Alt text](images/lifecycle2.png)
+![Alt text](lifecycle2.png)
 
 #### （2）Vue3生命周期图
 ![Alt text](images/lifecycle3.png)
