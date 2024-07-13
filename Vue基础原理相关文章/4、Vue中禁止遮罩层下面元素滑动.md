@@ -4,8 +4,7 @@
 
 例：
 ```
-<div class=“mask” @touchmove.prevent></div>
+<div class="mask" @touchmove.prevent></div>
 ```
-
 真机测试可用，浏览器或模拟器不可用
 
