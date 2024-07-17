@@ -1,3 +1,28 @@
 
+1、event loop 事件循环
+2、宏队列、微队列、宏任务、微任务
+3、Vite
+
+
+
+
+
+
+
+
+
+
+
+…………………………………………………………………………………………………………………………
+…………………………………………………………………………………………………………………………
+最大内容绘制 (LCP)
+1.Web 指标 https://web.dev/vitals/#core-web-vitals
+2.First Input Delay 首次输入延迟 (FID) https://web.dev/fid/
+3.Largest Contentful Paint 最大内容绘制 (LCP) https://web.dev/lcp/
+4.Application Holotypes: A Guide to Architecture Decisions
+5.快速加载 https://web.dev/fast/
+6.热更新 https://zhuanlan.zhihu.com/p/228325802
+
+
 
 
