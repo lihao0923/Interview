@@ -1,4 +1,274 @@
 # Node面试题
+https://www.cnblogs.com/qinlinkun/p/18138434
+
+
+# 一、什么是Node
+
+Node.js是一个基于Chrome V8引擎的JavaScript运行时环境，用于构建快速、可扩展的网络应用程序。它允许开发者使用JavaScript编写服务器端代码，实现了JavaScript的全栈化，使得前端和后端开发可以使用同一种语言。
+
+事件驱动：Node.js采用事件驱动的架构，使用非阻塞I/O模型，可以处理大量并发请求而不会阻塞线程，适用于高性能和实时应用程序。
+单线程：Node.js采用单线程模型，但通过事件循环机制和异步I/O操作，能够高效地处理大量并发请求，不会因为阻塞而导致性能下降。
+模块化：Node.js支持模块化开发，可以轻松地通过npm（Node.js包管理器）安装、管理和共享模块，使得项目组织更加清晰和可维护。
+跨平台：Node.js可以在多种操作系统上运行，包括Windows、Mac OS和Linux等，使得开发者可以在不同平台上使用相同的代码进行开发和部署。
+构建网络应用：Node.js适用于构建各种类型的网络应用，包括Web服务器、API服务器、实时通信应用（如聊天应用、游戏服务器）、代理服务器等。
+开发工具：Node.js提供了丰富的开发工具和库，如Express.js、Socket.io、Koa.js等，可以帮助开发者快速构建高效、可靠的网络应用。
+
+
+# 二、前端常用的Node模块？
+
+Path模块：Node.js的Path模块提供了一组用于处理文件路径的工具函数，包括路径解析、拼接、规范化等功能。开发者可以使用Path模块来处理文件路径，确保在不同操作系统上的兼容性。
+fs模块：Node.js的fs模块提供了对文件系统的访问功能，包括文件读写、目录操作、文件状态查询等。开发者可以使用fs模块来进行文件的读写、复制、删除等操作，实现文件系统的管理和操作。
+uglify-js：uglify-js是一个JavaScript代码压缩和混淆工具，用于减小JavaScript文件的体积和加密代码，以提高页面加载速度和保护源代码安全。开发者可以使用uglify-js来对JavaScript文件进行压缩、混淆和优化，以减少网络传输和提高代码安全性。
+npm（Node Package Manager）：npm是Node.js的包管理器，用于安装、管理和分享JavaScript代码包。前端开发者可以使用npm来安装和管理项目依赖，以及发布自己的代码包。
+webpack：webpack是一个模块打包工具，主要用于打包JavaScript模块、样式表、图片等资源文件。它支持各种模块化开发规范，如CommonJS、AMD和ES Module，并提供了丰富的插件系统，可以进行代码分割、懒加载、资源优化等。
+Babel：Babel是一个JavaScript编译器，用于将最新版本的JavaScript代码转换为向后兼容的代码，以便在老版本浏览器中运行。它支持将ES6+语法转换为ES5语法，并且可以通过插件扩展，支持编译React JSX、TypeScript等。
+ESLint：ESLint是一个JavaScript代码静态分析工具，用于发现并修复代码中的问题、统一代码风格，并且支持自定义规则。前端开发者可以使用ESLint来提高代码质量和可维护性。
+Prettier：Prettier是一个代码格式化工具，用于自动格式化JavaScript、CSS、HTML等代码文件，使代码风格统一。它支持各种配置选项，可以根据项目需求自定义格式化规则。
+Express.js：Express.js是一个基于Node.js的Web应用框架，用于构建RESTful API和Web应用。它提供了简洁、灵活的API，并且支持中间件机制，可以快速搭建高性能的Web服务器。
+nodemon：nodemon是一个监视Node.js应用程序文件变化并自动重启应用程序的工具，用于在开发过程中提高开发效率。
+http-server：http-server是一个简单的HTTP服务器工具，用于快速启动一个静态文件服务器，方便在本地预览前端项目。
+Cross-env：Cross-env是一个跨平台设置环境变量的工具，用于在不同操作系统上统一设置Node.js应用程序的环境变量，避免因操作系统差异导致的配置问题。
+Chalk：Chalk是一个用于在命令行中添加彩色输出的工具，可以通过简单的API来设置输出文本的颜色和样式，使得命令行输出更加清晰易读。
+
+
+# 三、Node常用的命令？
+
+npm install：用于安装项目的依赖包。例如，可以使用npm install <package-name>安装特定的npm包，或者直接运行npm install安装项目中package.json文件中指定的所有依赖包。
+npm start：用于启动项目中定义的启动脚本。通常在package.json文件中，会有一个名为"start"的脚本指定了项目的启动命令，可以通过npm start来执行该脚本。
+npm run <script-name>：用于运行项目中定义的自定义脚本。在package.json文件中，可以通过"scripts"字段定义各种自定义脚本，然后可以使用npm run <script-name>来执行这些脚本。
+npm init：用于初始化一个新的Node.js项目，会生成一个package.json文件，并引导用户填写项目信息。
+npm publish：用于将自己开发的npm包发布到npm仓库，供其他开发者使用。
+npm update：用于更新项目的依赖包版本。可以通过npm update <package-name>更新特定的依赖包，或者直接运行npm update更新所有依赖包。
+npm uninstall：用于移除项目的依赖包。可以通过npm uninstall <package-name>移除特定的依赖包，或者直接运行npm uninstall移除所有依赖包。
+npm audit：用于检查项目的依赖包是否存在安全漏洞，并提供修复建议。
+npm search：用于在npm仓库中搜索符合条件的npm包。
+npm link：用于将一个本地的npm包链接到全局环境，以便在其他项目中测试或调试该包。
+
+
+# 四、如何判断当前脚本运行在浏览器还是node环境中？
+
+
+//可以通过检查全局对象来确定当前脚本是在浏览器环境还是Node.js环境中运行。在浏览器中，全局对象是window，而在Node.js环境中，全局对象是global。
+
+// 1.在浏览器中，全局对象是 window
+if (typeof window !== 'undefined') {
+    console.log('当前环境是浏览器');
+} else {
+    console.log('当前环境是 Node.js');
+}
+
+
+//2.可以检查process对象是否存在来判断是否在Node.js环境中：
+// 在 Node.js 环境中，process 对象存在
+if (typeof process !== 'undefined' && process.release.name === 'node') {
+    console.log('当前环境是 Node.js');
+} else {
+    console.log('当前环境是浏览器');
+}
+
+
+# 五、Express框架的核心特性是什么?
+
+Express框架的核心特性包括中间件支持、路由功能、模板引擎支持、静态文件服务以及可扩展性，使得开发者能够快速构建高效、灵活的Web应用程序。
+中间件（Middleware）支持： Express框架通过中间件来处理HTTP请求。中间件是一个函数，它可以访问请求对象（req）、响应对象（res）和应用程序的请求-响应周期中的下一个中间件函数。中间件函数可以用来执行各种任务，如路由处理、错误处理、身份验证等。
+路由（Routing）： Express允许开发者定义各种HTTP请求方法（如GET、POST、PUT、DELETE等）的路由。通过定义路由，开发者可以将特定的HTTP请求映射到相应的处理函数，实现不同URL路径的请求处理。
+模板引擎支持： Express框架支持各种模板引擎，如EJS、Pug等，用于在服务器端生成HTML页面。开发者可以根据需求选择适合的模板引擎，将动态数据注入到HTML模板中，生成最终的HTML响应。
+静态文件服务： Express可以用于提供静态文件服务，如HTML、CSS、JavaScript、图像等。通过简单地指定静态文件目录，Express可以直接将这些文件提供给客户端，而无需任何额外的处理。
+中间件和路由的可扩展性： Express框架提供了丰富的中间件和路由功能，同时也支持开发者编写自定义的中间件和路由来满足特定需求。这种可扩展性使得Express在构建各种类型的Web应用程序时非常灵活。
+
+
+
+# 六、对Node的思想一切皆异步的理解?
+
+Node.js 的"一切皆异步"思想使得它成为一个高效、可扩展的服务器端平台，特别适用于处理大量并发请求的场景，如 Web 服务器、实时通讯应用等。
+
+Node.js 的核心思想是"一切皆异步"，这意味着它通过非阻塞的事件驱动机制处理输入输出操作，而不是采用传统的同步阻塞方式。
+
+在传统的同步阻塞模型中，当一个 I/O 操作（比如读取文件、查询数据库）发生时，程序会阻塞在那里等待操作完成，直到数据返回后才能继续执行下一步操作。这种模型会导致资源的浪费，
+因为在等待 I/O 完成的期间，CPU 无法处理其他任务，而且当有大量并发请求时，会造成性能瓶颈。
+
+而在 Node.js 中，所有的 I/O 操作都是异步的。当一个 I/O 操作被触发时，Node.js 会注册一个回调函数，并继续执行后续的代码，不会等待这个操作完成。当操作完成后，Node.js 会调用对应的回调函数来处理返回的数据。
+这种非阻塞的事件驱动模型使得 Node.js 能够更好地处理大量并发请求，提高系统的吞吐量和性能。
+
+Node.js 通过事件循环机制实现了这一思想。事件循环持续监听各种事件，当事件发生时，执行注册的回调函数。这种方式使得 Node.js 能够高效地处理各种 I/O 操作，包括网络请求、文件操作、数据库查询等，而不会阻塞整个应用程序的执行流程。
+
+
+I/O（Input/Output，输入/输出）操作是指计算机系统与外部环境进行数据交换的过程。这包括从外部设备（如硬盘、网络、键盘、鼠标等）读取数据到计算机内存中，以及将数据从内存写入到外部设备中的过程。
+
+常见的 I/O 操作包括：
+
+文件 I/O：读取和写入文件中的数据，包括从硬盘读取文件内容到内存中以供程序使用，以及将内存中的数据写入到硬盘中保存。
+
+网络 I/O：通过网络接口与其他计算机或设备进行通信，包括发送和接收数据包、建立和关闭网络连接等操作。
+
+控制台 I/O：与用户进行交互，包括从键盘读取输入数据，以及将程序的输出结果显示在屏幕上。
+
+数据库 I/O：与数据库进行交互，包括执行查询、插入、更新、删除等操作，以及将查询结果读取到内存中或将数据写入到数据库中。
+
+在计算机程序中，I/O 操作通常是耗时的，因为它们涉及到与外部环境的交互，而外部环境的响应速度比内存和 CPU 慢得多。因此，合理地处理 I/O 操作对于提高程序的性能和响应速度非常重要。在异步编程模型中，常常通过非阻塞的方式处理 I/O 操作，
+使得程序可以在等待 I/O 操作完成的同时执行其他任务，提高系统的并发能力和响应速度。
+
+
+# 七、node中的exports如何实现的，它和module.exports有什么关系?
+
+
+在 Node.js 中，每个文件都被视为一个模块。Node.js 提供了模块系统来管理模块之间的依赖关系和导出导入功能。
+
+在一个模块中，有两个与导出相关的关键对象：module.exports 和 exports。它们之间的关系是：
+module.exports 是模块的导出对象，它是模块系统默认导出的对象。当一个模块需要导出单个值、函数或对象时，可以直接给 module.exports 赋值。
+exports 是 module.exports 的一个引用。它是一个空对象 {}，可以用来向外部导出多个值、函数或对象。当你给 exports 赋值时，实际上是在修改 module.exports 的引用，将其指向你所赋的值。
+
+因此，你可以将模块的导出操作分为两种方式：
+1.直接给 module.exports 赋值：
+// moduleA.js
+module.exports = {
+  key: value,
+  func: function() {
+    // function body
+  }
+};
+2.使用 exports 导出多个值：
+// moduleB.js
+exports.key1 = value1;
+exports.key2 = value2;
+exports.func1 = function() {
+  // function body
+};
+两种方式的导出效果是一样的，都会导出一个包含指定值的对象。在实际开发中，可以根据需求选择使用其中的一种方式来导出模块。需要注意的是，不要直接给 exports 赋值一个新对象，这样会断开它与 module.exports 的引用关系，导致模块系统无法正确导出你所期望的内容。
+
+# 八、Node.js 加载模块机制?
+
+Node.js 使用 CommonJS 规范来加载模块。加载模块的机制主要包括以下几个步骤：
+
+路径解析： 当使用 require() 加载模块时，Node.js 首先会根据模块标识符（可以是相对路径或绝对路径）来确定要加载的模块。
+如果模块标识符是一个相对路径，则会根据当前模块的文件路径解析出要加载的模块的绝对路径；如果是一个非相对路径，则会根据模块查找路径来查找模块。
+
+缓存检查： Node.js 会检查要加载的模块是否已经被加载过，如果已经加载过，则直接从缓存中获取，避免重复加载。
+
+模块编译： 如果要加载的模块没有被缓存，Node.js 会根据文件扩展名确定要使用的加载策略。对于 JavaScript 文件，Node.js 会使用 V8 引擎进行编译执行；
+对于 JSON 文件，Node.js 会直接加载并解析为 JavaScript 对象；对于其他类型的文件（如 C++ 扩展模块），Node.js 会调用相应的加载器进行加载。
+
+模块包装： 在加载 JavaScript 模块时，Node.js 会将模块文件内容包装在一个函数中，并且在该函数内部注入一些变量和函数，使得模块中的内容可以被封装在一个作用域内，同时支持模块间的导入导出。
+
+模块执行： 当模块加载完成后，Node.js 会立即执行模块中的代码，并且将模块的导出对象作为 require() 函数的返回值返回给调用方。
+
+这样，通过 CommonJS 规范，Node.js 实现了模块化开发，并提供了方便的模块加载和导出机制，使得开发者可以更加高效地组织和管理代码。
+
+
+# 九、Node.js的适用场景?
+
+Node.js 在许多不同的场景中都有广泛的应用，主要因为其非阻塞式的事件驱动模型和高效的 JavaScript 运行时环境。
+　　Node.js 的一些主要适用场景：
+
+服务器端应用程序开发：Node.js 最常见的用途之一是构建服务器端应用程序。它的事件驱动和非阻塞 I/O 特性使得它非常适合处理大量并发请求，例如 Web 服务器、API 服务器等。
+实时 Web 应用程序：由于 Node.js 能够处理大量并发连接，并且具有轻量级的通信协议，因此它非常适合构建实时的 Web 应用程序，如聊天应用、在线游戏、实时协作工具等。
+API 服务器：Node.js 提供了简单易用的方式来构建 RESTful API，可以通过 Express.js、Koa.js 等框架快速地搭建 API 服务器，处理 HTTP 请求和响应，并与数据库进行交互。
+微服务架构：Node.js 的轻量级和高效性使其成为构建微服务架构的理想选择。通过将不同的功能模块拆分为独立的微服务，可以实现更好的可伸缩性和灵活性。
+实时数据处理：Node.js 可以用于处理实时数据流，例如日志处理、实时分析、实时监控等。其事件驱动的特性使得它能够有效地处理流式数据。
+命令行工具：Node.js 提供了丰富的内置模块和第三方库，使得它非常适合用于开发命令行工具和脚本。例如，可以使用 Node.js 构建自定义的构建工具、自动化任务、数据处理工具等。
+单页应用程序（SPA）服务器端渲染：Node.js 可以与前端框架（如React、Vue.js）结合，实现服务器端渲染（SSR），提供更好的首屏加载性能和更好的 SEO。
+物联网（IoT）应用程序：由于 Node.js 的轻量级和高效性，它也适用于物联网领域，例如传感器数据的收集和处理、智能家居控制等。
+
+
+
+# 十、原生 Node 如何解决跨域?
+
+
+javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  // 设置允许跨域访问的域名，*表示允许所有域名访问，也可以指定特定的域名
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // 设置允许的请求方法
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  // 设置允许的请求头字段
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // 如果是预检请求，直接返回成功状态码
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  // 其他业务逻辑处理
+  // ...
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`);
+});
+
+//通过设置 Access-Control-Allow-Origin 头为 *，允许所有域名访问，你也可以将其设置为特定的域名。通过设置 Access-Control-Allow-Methods 头，指定允许的请求方法，例如 GET, POST, PUT, DELETE 等。通过设置 Access-Control-Allow-Headers 头，指定允许的请求头字段。
+
+//对于预检请求（OPTIONS请求），直接返回200状态码即可。
+
+//这种方式简单且直接，适用于简单的Node.js应用程序。对于复杂的情况，可能需要更灵活的跨域解决方案，例如使用中间件库如 cors。
+
+
+
+# 十一、反向代理是什么，如何实现?
+
+npm install http-proxy
+
+const http = require('http');
+const httpProxy = require('http-proxy');
+
+// 创建代理服务器实例
+const proxy = httpProxy.createProxyServer({});
+
+// 目标服务器的地址
+const target = 'http://example.com';
+
+// 创建HTTP服务器
+const server = http.createServer((req, res) => {
+  // 在请求头中添加Host字段，以确保目标服务器能够正确识别请求的主机名
+  req.headers.host = new URL(target).host;
+  
+  // 将请求转发到目标服务器
+  proxy.web(req, res, { target });
+});
+
+// 监听端口
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Proxy server running at http://localhost:${PORT}/`);
+});
+
+//我们首先引入了http模块和http-proxy模块。然后，创建了一个代理服务器实例，并指定了目标服务器的地址。接着，创建了一个HTTP服务器，监听在本地的某个端口上。当收到客户端的请求时，会将请求转发到目标服务器，并将目标服务器的响应返回给客户端。
+
+
+
+# 十二、什么是中间件，好处是什么?
+
+
+在Node.js中，中间件（Middleware）是指在处理HTTP请求和响应之间执行的一系列函数。这些函数可以访问请求对象（req）、响应对象（res）以及应用程序中的下一个中间件函数。Node.js中的Express框架广泛使用了中间件的概念。
+
+　　中间件的好处：
+
+模块化和可复用性： 中间件使得代码模块化，易于维护和重用。你可以编写一次中间件函数，并在多个路由或应用程序中使用它。
+增强功能： 中间件可以用于增强应用程序的功能，例如身份验证、日志记录、错误处理、数据转换等。通过在请求和响应之间执行功能，可以轻松地添加新的功能而不必修改每个路由处理程序。
+顺序控制： 中间件允许你以特定的顺序执行功能。你可以控制中间件函数的执行顺序，以确保每个中间件在正确的时候被调用。
+错误处理： 中间件可以捕获并处理请求过程中的错误。你可以编写错误处理中间件来集中处理错误，并向客户端发送适当的错误响应。
+性能优化： 中间件可以用于实现各种性能优化技术，例如缓存、压缩、请求日志记录等，从而提高应用程序的性能和可伸缩性。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
