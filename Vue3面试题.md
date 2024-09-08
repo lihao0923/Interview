@@ -1,0 +1,229 @@
+# ··· VUE3面试题 ···
+
+
+# 一、Options Api与Composition Api的区别？
+
+**Options Api(选项API)** 指在Vue单文件组件中，通过定义methods，computed，watch，data等属性与方法，共同处理页面逻辑。然而，当组件变得复杂，导致对应属性的列表也会增长，这可能会导致组件难以阅读和理解。
+
+**Composition API**中，组件根据逻辑功能来组织的，一个功能所定义的所有API会放在一起（ 更加的 高内聚，低耦合 ）。
+
+**Composition Api相对Options Api的优点：**
+
+* 1、在逻辑组织和逻辑复用方面，Composition API是优于Options API
+    * 组织逻辑：Composition Api将某个逻辑关注点相关的代码全都放在一个函数里，这样，当需要修改一个功能时，就不再需要在文件中跳来跳去。
+    * 逻辑复用：在vue2.0中，当混入多个mixin会存在两个非常明显的问题：命名冲突、数据来源不清晰。而Composition Api可以通过编写多个hooks函数就很好的解决了。
+* 2、因为Composition API几乎是函数，会有更好的类型推断;
+* 3、Composition API 对 tree-shaking 友好，代码也更容易压缩;
+* 4、Composition API中见不到this的使用，减少了this指向不明的情况;
+* 5、如果是小型组件，可以继续使用Options API，也是十分友好的;
+
+
+
+# 二、说说Vue 3.0中Treeshaking特性？举例说明一下？ 
+Tree shaking是一种通过清除多余代码方式来优化项目打包体积的技术，简单来讲，就是在保持代码运行结果不变的前提下，去除无用的代码。移除javaScript中上下文未被引用的代码，主要依赖于import和export,用来检测代码模块中是否被导入/导出且被文件使用。
+
+Vue 2的设计和构建是基于ES5时代完成的, vue2中捆绑实例是单例的，组件通常是通过直接引入Vue对象的属性来使用的,这导致整个Vue对象以及所有的属性都会被包含进最终的构建中.捆绑程序无法检测到该对象的哪些属性在代码中被使用到；在Vue3源码引入tree shaking特性，将全局API进行分块，如果你不使用某些功能，将不会包含在基础包中。
+
+
+# 三、Vue3 新特性有哪些？
+**1、性能提升：** proxy代替defineProperty；diff算法优化，增加静态标记；模板编译优化，静态提升（不参加更新元素只会创建一次）；
+**2、ts支持：** 类型检查，能支持复杂的类型推断；
+**3、新增 Composition API：** setup()函数会在created()生命周期之前执行。执行顺序为：beforeCreate > setup > created；
+**4、新增组件：** 不再限制template只有一个根节点；Teleport传送门；Suspense等待异步组件时渲染一些额外的内容(配合fallback)；
+**5、tree-shaking:** 加载速度更快；
+
+
+
+# 四、Vue3组合式API生命周期钩子函数有什么变化
+beforeDestroy改名为beforeUnmount；
+destroyed改名为unmounted；
+
+Vue3.0也提供了Composition API形式的生命周期钩子，与Vue2.x中钩子对应关系如下：
+
+* beforeCreate ===> setup()
+* created ===> setup()
+* beforeMount ===> onBeforeMount
+* mounted => onMounted
+* beforeUpdate ===> onBeforeUpdate
+* updated ===> onUpdated
+* beforeUnmount ===> onBeforeUnmount
+* unmounted ===> onUnmounted
+
+
+# 五、script setup是干啥的
+setup是vue3的语法糖
+
+**setup的作用：**
+    1、接收参数：
+    setup接收两个参数：‌props和context。‌props用于访问从父组件传递过来的属性值（ps:这个值是父组件传递过来&组件内部声明了的），‌是只读的。context是一个包含了组件上下文信息的对象：如属性（attrs：包含组件传递过来的&& 但没在组件内部声明了的属性，相当于this.$attrs），插槽（slots），事件（emit）；
+    2、设置组件的响应式状态；
+    3、处理生命周期钩子；
+    4、处理事件：在setup函数中，‌可以通过context.emit方法定义并触发事件，‌实现子组件向父组件通信的功能；
+    5、返回组件的配置：setup函数返回一个包含组件配置的对象，‌该对象中的属性将会合并到组件实例中。‌这允许开发者直接将需要暴露给模板的属性和方法放在返回的对象中。‌
+
+**注意：**
+
+    1、内部没有this；
+    2、这个钩子会在created前执行；
+    3、如果返回值是一个对象，那么这个对象的键值对会被合并到created钩子的this中，并且在视图上。
+
+**使用setup语法糖的特点：**
+
+    1、属性和方法无需返回，可以直接使用；
+    2、引入组件的时候，会自动注册，无需通过 components 手动注册；
+    3、使用 defineProps 接收父组件传递的值；
+    4、useAttrs 获取属性，useSlots 获取插槽，defineEmits 获取自定义事件；
+    5、默认不会对外暴露任何属性，如果有需要可使用 defineExpose ；
+    6、setup是组合api的起点：从生命周期来看，他的执行在组件实例创建之前（vue2.x的beforeCreate）之前。这就意味着：在setup函数中，this还不是组件实例，this此时是undefind；
+
+
+# 六、Vue3组件通讯
+1、用于父组件向子组件传递数据，子组件用defineProps/props/attrs接收父组件传递来的参数；
+
+2、v-model组件通讯；
+
+3、子组件使用defineEmit自定义事件，并且向父组件传递参数；
+
+4、子组件通过defineExpose暴露自身的方法和数据，父组件通过ref获取值（相反，子组件可以通过$parent获取父组件的数据，父组件也需defineExpose）；
+
+5、provide/inject；
+
+6、Vuex/pinia；
+
+7、全局事件总线：需要使用插件mitt（因为vue构造函数被移除，无法做到$bus全局事件总线）。
+
+
+    // 组件内：
+    import mitt from 'mitt' // 引入$bus对象
+    const $bus = mitt()
+ 
+    const handler = () => { // 点击按钮回调
+        $bus.emit('car', { car: '法拉利' })
+    }
+    
+    // 接受参数的组件内：$bus.on
+    import mitt from 'mitt'
+    const $bus = mitt()
+    import { onMounted } from 'vue'
+    // 组件挂载完毕的时候,当前组件绑定一个事件,接受将来兄弟组件传递的数据
+    onMounted(() => {
+        $bus.on('car', (car) => { // 第一个参数:即为事件类型  第二个参数:即为事件回调
+            console.log(car)
+        })
+    })
+
+
+
+# 七、ref与reactive的区别？
+ref与reactive是Vue3新推出的主要API之一，它们主要用于响应式数据的创建。
+
+* 1、在Vue3中reactive能做的，ref 也能做，reactive不能做的，ref也能做；
+* 2、ref创建的响应式数据，在模板中可以直接被使用，在JS中需要通过.value的形式才能使用；reactive不需要.value；
+* 3、ref可以接收原始数据类型与引用数据类型。reactive函数只能接收引用数据类型；
+* 4、ref底层还是使用 reactive 来做，ref是在reactive上在进行了封装，增强了其能力，使它支持了对原始数据类型的处理。
+
+**reactive:**
+
+1、原理：本质是将传入的数据包装成一个Proxy; 
+2、参数必须是对象或者数组，如果要让对象的某个元素实现响应式时比较麻烦。需要使用toRefs。
+
+**ref:**
+1、原理: 依赖于Object.defineProperty()的get()和set()。
+
+
+# 八、响应式数据的判断
+* isRef: 判断一个值是否为一个 ref 对象
+* isReactive: 判断一个对象是否由reactive创建的响应式代理
+* isReadOnly: 判断一个对象是否由readOnly创建的只读代理
+* isProxy: 判断一个对象是否由 readOnly、reactive创建的代理
+
+还有一些不常用的api：
+
+    1、shallowRef: 创建一个浅层的响应式引用。更加轻量和高效，适用于不需要深度响应式追踪的场景；
+    2、shallowReactive: 创建一个浅层的响应式对象；
+    3、readonly: 用于创建一个只读的响应式代理对象；
+    4、shallowReadonly: 用于将对象的顶层属性设为只读，任何尝试修改顶层属性的操作都会抛出错误。与 readonly 不同的是：shallowReadonly 只会影响对象的顶层属性，不会递归地使对象内部的属性也变为只读；
+    5、toRaw: 获取响应式对象的原始对象。使用toRaw获取的原始对象将不再具有响应性；修改原始对象不会触发视图更新；toRaw适用于性能优化和与外部库的集成；
+    6、markRaw: 是一个函数，用于标记一个对象，使其成为一个不可像应的普通对象；
+    7、toRef: 将reactive里的一个节点提取出来，同时具有响应式；
+    8、toRefs: 将reactive里所有的节点提取出来，同时具有响应式，注意只能提取一级节点
+    9、triggerRef：用于强制触发对shallowRef的响应式更新；
+    10、customRef: 自定义依赖追踪和更新策略的ref。是一个函数，该函数返回一个包含get和 set方法的对象,读取和修改引用值。
+        * track：用于标记依赖，告诉 Vue 这个 ref 的值被读取了。
+        * trigger：用于触发依赖更新，告诉 Vue 这个 ref 的值被修改了。
+        * 使用场景：延迟获取或计算（防抖、节流）；异步更新；复杂依赖关系；
+
+
+
+# 九、Vite为什么比Webpack快
+1.Webpack是基于Node.js实现的，而Vite是使用Esbuild预构建依赖，Esbuild比以Node.js 编写的打包器预构建依赖快10-100倍。
+
+2.Webpack 叫做 bundler ，将所有文件打包成一个文件。
+Webpack 先识别入口文件，启动服务器后，最后直接给出打包结果。Webpack 做的是分析代码，转换代码，最后形成打包后的代码。
+Vite 又叫做 no bundler ，顾名思义，就是不用打包，支持 ES moudle 加载。
+Vite 启动服务器后，会按需加载，当请求哪个模块时才会对该模块进行编译。按需加载的方式，极大的缩减了编译时间。
+
+
+# 十、toRef和toRefs
+toRef和toRefs可以用来复制reactive里面的属性然后转成ref，而且它既保留了响应式，也保留了引用 (解释：也就是修改了源数据，响应式数据本身会修改；修改了响应式，源数据也会同步修改，且视图都会更新)
+
+* toRefs底层其实是循环的toRef
+
+* toRef: 复制reactive里的单个属性并转成ref;toRefs: 复制reactive里的所有属性并转成ref
+
+
+# 十一、methods和computed看起来都可以实现我们的功能， 那么为什么还要多一个计算属性这个东西呢？ 
+原因：
+* 1、计算属性会进行缓存，如果多次使用时，计算属性只会调用一次；
+* 2、而方法会使用一次则调用一次，因此计算属性相对而言性能更好。
+
+
+# 十二、原型绑定全局属性
+**1、vue3通过config.globalProperties**
+
+**2、通过provide注入：在应用实例上设置一个可以被注入到应用范围内所有组件中的值。当组件要使用应用提供的 provide 值时，必须用 inject 来接收。**
+
+**3、在main.js中全局引入，然后在组件中获取**
+
+config.globalProperties使用代码示例：
+
+在main.js中：
+
+    Vue.config.productionTip = false
+    import App from './App'
+    import request from '@/api/request.js'
+    const app = createApp(App)
+    
+    // 方法1： 直接使用Vue.config.globalProperties.自定义属性名
+    Vue.config.globalProperties.$request = request
+    Vue.config.globalProperties.$mytest = yuan
+    
+    // 方法2：使用对名.config.globalProperties.自定义属性名
+    app.config.globalProperties.$request = request
+    app.config.globalProperties.$mytest = jinshengyuan
+
+
+在setup函数中获取:  getCurrentInstance() : 获取当前组件的实例
+
+    <script>
+        import { getCurrentInstance } from 'vue'
+        export default {
+            components: {},
+            setup() {
+                const {appContext, ctx, proxy} = getCurrentInstance()
+                
+                // 1.从appContext获取
+                console.log('appContext', appContext.config.globalProperties)
+                
+                // 2.从ctx获取，ctx相当于Vue2的this, 但是需要特别注意的是ctx代替this只适用于开发阶段，如果将项目打包放到生产服务器上运行，就会出错，ctx无法获取路由和全局挂载对象的。此问题的解决方案就是使用proxy替代ctx
+                console.log('ctx', ctx)
+                
+                // 3.从proxy获取 在开发环境以及生产环境下都能放到组件上下文对象（推荐使用）
+                console.log('proxy', proxy)
+                return {}
+            }
+        }
+    </script>
+
+
+
